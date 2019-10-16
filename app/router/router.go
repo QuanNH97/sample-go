@@ -2,6 +2,7 @@ package router
 
 import (
 	"net/http"
+	"sample/app/register"
 
 	"sample/app/hello"
 	"sample/app/infrastructure"
@@ -59,6 +60,7 @@ func (r *Router) SetupHandler() {
 	hw := hello.NewHTTPHandler(ah)
 	lg := login.NewLoginHTTPHandler(ah)
 	lo := logout.NewLogoutHTTPHandler(ah)
+	rg := register.NewRegisterHTTPHandler(ah)
 
 	r.Mux.Route("/", func(cr chi.Router) {
 		cr.Get("/hello", hw.HelloWorld)
@@ -66,5 +68,7 @@ func (r *Router) SetupHandler() {
 		cr.Post("/login", lg.HandleLogin)
 		cr.Get("/logout", lo.Logout)
 		cr.Post("/logout", lo.HandlerLogout)
+		cr.Get("/register", rg.Register)
+		cr.Post("/register", rg.HandlerRegister)
 	})
 }

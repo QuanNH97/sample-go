@@ -27,6 +27,7 @@ func (h *HTTPHandler) Login(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "user")
 	message, _ := session.Values["mess_session"].(string)
 	email, _ := session.Values["email"].(string)
+
 	if (message == "" && email == "") || (message == "email or password invalid") {
 		err := h.ResponseHTML(w, r, "login/login", templateData{
 			Mess:  message,
@@ -43,10 +44,10 @@ func (h *HTTPHandler) Login(w http.ResponseWriter, r *http.Request) {
 //HandleLogin ...
 func (h *HTTPHandler) HandleLogin(w http.ResponseWriter, r *http.Request) {
 	email := r.FormValue("email")
-	password := r.FormValue("pwd")
-	// fmt.Println(email)
-	// fmt.Println(password)
-	if email == "hathaymuadep@gmail.com" && password == "quanhen121" {
+	pass := r.FormValue("pwd")
+	UserInfo := handler.ReturnStruct(email, pass)
+	check := handler.CheckUser(UserInfo)
+	if check == true {
 		message := "done"
 		session, _ := store.Get(r, "user")
 		session.Values["mess_session"] = message

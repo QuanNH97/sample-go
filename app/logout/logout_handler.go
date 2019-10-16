@@ -19,17 +19,22 @@ var (
 
 type templateData struct {
 	Email string
+	Mess  string
 }
 
 // Logout get session
 func (h *HTTPHandler) Logout(w http.ResponseWriter, r *http.Request) {
 	session, _ := store.Get(r, "user")
 	email, _ := session.Values["email"].(string)
-	err := h.ResponseHTML(w, r, "logout/logout", templateData{
-		Email: email,
-	})
-	if err != nil {
-		_ = h.StatusServerError(w, r)
+	if email == "" {
+		http.Redirect(w, r, "/login", 302)
+	} else {
+		err := h.ResponseHTML(w, r, "logout/logout", templateData{
+			Email: email,
+		})
+		if err != nil {
+			_ = h.StatusServerError(w, r)
+		}
 	}
 }
 
