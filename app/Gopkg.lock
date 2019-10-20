@@ -234,3 +234,15 @@
   inputs-digest = "8f619e016aef70c4c72c2855d9a4246c04f6a457ce4ed53abc847946a9b4f98f"
   solver-name = "gps-cdcl"
   solver-version = 1
+
+[[projects]]
+  name = "github.com/gorilla/sessions"
+  packages = ["."]
+  revision = "4355a998706e83fe1d71c31b07af94e34f68d74a"
+  version = "v1.2.0"
+
+[[projects]]
+  name = "github.com/gorilla/securecookie"
+  packages = ["."]
+  revision = "e59506cc896acb7f7bf732d4fdf5e25f7ccd8983"
+  version = "v1.1.1"
